@@ -3,7 +3,7 @@ from typing import List, Optional, Union
 from pydantic import BaseModel, validator
 from pytorch_lightning import Trainer
 
-from . import CallbackConfig, select_callback
+from . import CallbackConfig, select_callback, BaseLoggerConfig, select_logger
 
 
 class TrainerConfig(BaseModel):
@@ -12,6 +12,7 @@ class TrainerConfig(BaseModel):
     max_epochs: int = 200
     check_val_every_n_epoch: int = 5
     callbacks: List[CallbackConfig] = []
+    logger: BaseLoggerConfig
 
     @validator("accelerator")
     def validate_accelerator(cls, v):
@@ -26,13 +27,23 @@ class TrainerConfig(BaseModel):
         assert isinstance(v, dict)
         return select_callback(v)
 
+    @validator("logger", pre=True)
+    def validate_logger(cls, v):
+        if isinstance(v, BaseLoggerConfig):
+            return v
+
+        assert isinstance(v, dict)
+        return select_logger(v)
+
     @property
     def trainer(self):
 
         callbacks_list = [cb.callback for cb in self.callbacks]
+        logger = self.logger.logger
 
         kwargs = self.dict()
         kwargs["callbacks"] = callbacks_list
+        kwargs["logger"] = logger
         trainer_instance = Trainer(**kwargs)
 
         return trainer_instance
