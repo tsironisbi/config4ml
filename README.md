@@ -10,3 +10,6 @@ Basic configuration utilities and API for ML projects
 - Dataset base config
 - MNIST built-in config (also as tutorial)
 - Lightning trainer config with callbacks support
+
+## [v0.0.2]
+- Support for Neptune, Tensorboard logger configs
