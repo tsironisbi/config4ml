@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.devcontainer/devcontainer.json
+
+# Local/repo stuff
+/mnist/
