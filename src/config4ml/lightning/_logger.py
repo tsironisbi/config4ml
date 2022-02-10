@@ -7,6 +7,8 @@ from pytorch_lightning.loggers import (
     TensorBoardLogger,
 )
 
+from .extra import ConsoleLogger
+
 
 class InvalidLogger(Exception):
     pass
@@ -45,10 +47,20 @@ class TensorboardLoggerConfig(BaseLoggerConfig):
         return TensorBoardLogger(**kwargs)
 
 
+class ConsoleLoggerConfig(BaseLoggerConfig):
+    type = "console"
+
+    @property
+    def logger(self) -> LightningLoggerBase:
+        return ConsoleLogger()
+
+
 def select_logger(v: dict) -> BaseLoggerConfig:
     if v["type"] == "neptune":
         return NeptuneLoggerConfig.parse_obj(v)
     if v["type"] == "tensorboard":
         return TensorboardLoggerConfig.parse_obj(v)
+    if v["type"] == "console":
+        return ConsoleLoggerConfig.parse_obj(v)
     else:
         raise InvalidLogger(f"{v['type']} is not a valid logger type")

@@ -1,7 +1,8 @@
 from config4ml.lightning import BaseLoggerConfig, TrainerConfig, select_logger
+from config4ml.lightning.extra import ConsoleLogger
 from pydantic import BaseModel, validator
-from pytorch_lightning.loggers import NeptuneLogger, TensorBoardLogger
 from pytorch_lightning import Trainer
+from pytorch_lightning.loggers import NeptuneLogger, TensorBoardLogger
 
 
 class TestClass:
@@ -27,6 +28,10 @@ class TestClass:
         cfg_tensorboard = {"logger": {"type": "tensorboard", "save_dir": "./tb"}}
         cfg2 = DemoConfig.parse_obj(cfg_tensorboard)
         assert isinstance(cfg2.logger.logger, TensorBoardLogger)
+
+        cfg_console = {"logger": {"type": "console"}}
+        cfg3 = DemoConfig.parse_obj(cfg_console)
+        assert isinstance(cfg3.logger.logger, ConsoleLogger)
 
     def test_trainer_config(self):
 

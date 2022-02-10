@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, root_validator, validator
 from pytorch_lightning import Trainer
 
 from . import CallbackConfig, select_callback, BaseLoggerConfig, select_logger
@@ -13,6 +13,7 @@ class TrainerConfig(BaseModel):
     check_val_every_n_epoch: int = 5
     callbacks: List[CallbackConfig] = []
     logger: BaseLoggerConfig
+    devices: Optional[int] = None
 
     @validator("accelerator")
     def validate_accelerator(cls, v):
@@ -34,6 +35,17 @@ class TrainerConfig(BaseModel):
 
         assert isinstance(v, dict)
         return select_logger(v)
+
+    @root_validator
+    def validate_devices(cls, values):
+        if values["accelerator"] != "cpu":
+            if values.get("devices", None) is None:
+                values["devices"] = 1
+        else:
+            assert (
+                values.get("devices", None) is None
+            ), "When accelerator is 'cpu' devices must be None"
+        return values
 
     @property
     def trainer(self):
