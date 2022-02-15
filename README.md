@@ -13,3 +13,9 @@ Basic configuration utilities and API for ML projects
 
 ## [v0.0.2]
 - Support for Neptune, Tensorboard logger configs
+- Support for Console logging
+
+## [v0.0.3]
+- Trainer with console logging override option
+- More arguments for Early Stopping callback
+- Weights and biases logger (Wand) support

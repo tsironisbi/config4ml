@@ -4,6 +4,7 @@ from pydantic import BaseModel, root_validator, validator
 from pytorch_lightning import Trainer
 
 from . import CallbackConfig, select_callback, BaseLoggerConfig, select_logger
+from .extra import ConsoleLogger
 
 
 class TrainerConfig(BaseModel):
@@ -49,9 +50,18 @@ class TrainerConfig(BaseModel):
 
     @property
     def trainer(self):
+        print(
+            'WARNING! "trainer" property to be deprecated soon. Use .get_trainer_instance method instead'
+        )
+        return self.get_trainer_instance()
 
+    def get_trainer_instance(self, console_logging_override=False) -> Trainer:
         callbacks_list = [cb.callback for cb in self.callbacks]
-        logger = self.logger.logger
+
+        if console_logging_override:
+            logger = ConsoleLogger()
+        else:
+            logger = self.logger.logger
 
         kwargs = self.dict()
         kwargs["callbacks"] = callbacks_list

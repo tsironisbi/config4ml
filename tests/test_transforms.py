@@ -2,9 +2,9 @@ from typing import Callable
 import config4ml.data.transforms as transforms
 
 
-def T(value: int) -> Callable:
+def T() -> Callable:
     def apply(x: int) -> int:
-        return x + value
+        return x
 
     return apply
 

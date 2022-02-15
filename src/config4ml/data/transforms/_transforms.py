@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional, OrderedDict
+from typing import Any, Callable, Dict, List, Optional, OrderedDict, TypeVar
 
 from pydantic import BaseModel, root_validator, validator
 
@@ -11,7 +11,7 @@ class Registry:
     _transforms: OrderedDict[str, Callable] = OrderedDict()
 
     @classmethod
-    def register(cls, T: Callable[[Any], Callable], key: Optional[str] = None) -> None:
+    def register(cls, T: Callable, key: Optional[str] = None) -> None:
 
         assert isinstance(T, Callable), "Transform to be registered must be a Callable"
 

@@ -42,6 +42,15 @@ class ModelCheckpointConfig(CallbackConfig):
 class EarlyStoppingConfig(CallbackConfig):
     type: str = "early_stopping"
     monitor: str
+    min_delta: float = 0.0
+    patience: int = 3
+    verbose: bool = False
+    mode: str = "min"
+    strict: bool = True
+    check_finite: bool = True
+    stopping_threshold: Optional[float] = None
+    divergence_threshold: Optional[float] = None
+    check_on_train_epoch_end: Optional[bool] = None
 
     @property
     def callback(self):
