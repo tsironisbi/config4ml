@@ -1,5 +1,4 @@
 from typing import List, Optional
-from matplotlib.pyplot import cla
 
 from pydantic import BaseModel, validator
 from pytorch_lightning.loggers import (

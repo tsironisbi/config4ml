@@ -19,3 +19,4 @@ Basic configuration utilities and API for ML projects
 - Trainer with console logging override option
 - More arguments for Early Stopping callback
 - Weights and biases logger (Wand) support
+- Support for torch LR schedulers config [stepLR, exponentialLR, reduceOnPlateauLR]
