@@ -5,6 +5,7 @@ from pytorch_lightning.loggers import (
     LightningLoggerBase,
     NeptuneLogger,
     TensorBoardLogger,
+    WandbLogger,
 )
 
 from .extra import ConsoleLogger
@@ -47,6 +48,26 @@ class TensorboardLoggerConfig(BaseLoggerConfig):
         return TensorBoardLogger(**kwargs)
 
 
+class WandLoggerConfig(BaseLoggerConfig):
+    type = "wandb"
+    project: Optional[str] = None
+    experiment: Optional[str] = None
+    name: Optional[str] = None
+    save_dir: Optional[str] = None
+    offline: bool = False
+    id: Optional[int] = None
+    anonymous: Optional[bool] = None
+    version: Optional[int] = None
+    log_model: bool = False
+    prefix: str = ""
+
+    @property
+    def logger(self) -> LightningLoggerBase:
+        kwargs = self.dict()
+        kwargs.pop("type")
+        return WandbLogger(**kwargs)
+
+
 class ConsoleLoggerConfig(BaseLoggerConfig):
     type = "console"
 
@@ -58,9 +79,11 @@ class ConsoleLoggerConfig(BaseLoggerConfig):
 def select_logger(v: dict) -> BaseLoggerConfig:
     if v["type"] == "neptune":
         return NeptuneLoggerConfig.parse_obj(v)
-    if v["type"] == "tensorboard":
+    elif v["type"] == "tensorboard":
         return TensorboardLoggerConfig.parse_obj(v)
-    if v["type"] == "console":
+    elif v["type"] == "wandb":
+        return WandLoggerConfig.parse_obj(v)
+    elif v["type"] == "console":
         return ConsoleLoggerConfig.parse_obj(v)
     else:
         raise InvalidLogger(f"{v['type']} is not a valid logger type")

@@ -6,10 +6,18 @@ Basic configuration utilities and API for ML projects
 
 ## [v0.0.1]
 
-- Transform config & registry
-- Dataset base config
-- MNIST built-in config (also as tutorial)
-- Lightning trainer config with callbacks support
+- [data] Transform config & registry
+- [data] Dataset base config
+- [data] MNIST built-in config (also as tutorial)
+- [lightning] Lightning trainer config with callbacks support
 
 ## [v0.0.2]
-- Support for Neptune, Tensorboard logger configs
+- [lightning] Support for Neptune, Tensorboard logger configs
+- [lightning] Support for Console logging
+
+## [v0.0.3]
+- [lightning] Trainer with console logging override option
+- [lightning] More arguments for Early Stopping callback
+- [lightning] Weights and biases logger (Wand) support
+- [torch] Support for torch LR schedulers config [stepLR, exponentialLR, reduceOnPlateauLR]
+- [torch] Support for torch Optimizers config [Adam, SGD]
