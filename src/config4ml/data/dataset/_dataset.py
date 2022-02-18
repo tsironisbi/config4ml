@@ -20,7 +20,7 @@ class DataloaderConfig(BaseModel):
 
     num_workers: int = 0
     prefetch_factor: Optional[int] = None
-    batch_size: int = 32
+    batch_size: int
 
     def get_train_dataloader(self, dset: Dataset, **extra_kwargs) -> DataLoader:
         """Generates a "training" dataloader from dataloader config options.
