@@ -10,6 +10,7 @@ class TestClass:
             "root": "./mnist",
             "split": "default",
             "download": True,
+            "dataloader": {"batch_size": 32},
         }
 
         cfg = MNISTConfig.parse_obj(cfg_obj)

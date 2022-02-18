@@ -18,9 +18,9 @@ class DataloaderConfig(BaseModel):
         batch_size (int): Batch size for data-loading
     """
 
+    batch_size: int
     num_workers: int = 0
     prefetch_factor: Optional[int] = None
-    batch_size: int
 
     def get_train_dataloader(self, dset: Dataset, **extra_kwargs) -> DataLoader:
         """Generates a "training" dataloader from dataloader config options.
@@ -81,7 +81,7 @@ class DatasetConfig(BaseModel):
     root: str
     split: Union[str, float] = "default"
     transforms: List[TransformConfig] = []
-    dataloader: DataloaderConfig = DataloaderConfig()
+    dataloader: DataloaderConfig
 
     @property
     def transform_callables(self) -> List[Callable]:

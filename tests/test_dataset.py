@@ -49,6 +49,7 @@ class TestClass:
             "root": "PATH/TO/DSET/ROOT",
             "split": "default",
             "extra_arg": 32.4,
+            "dataloader": {"batch_size": 32},
         }
 
         cfg = CustomDatasetConfig.parse_obj(cfg_obj)
