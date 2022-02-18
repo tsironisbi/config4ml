@@ -39,6 +39,9 @@ class DataloaderConfig(BaseModel):
         """
         kwargs = self.dict()
         kwargs["shuffle"] = True
+
+        if self.num_workers == 0:
+            del kwargs["prefetch_factor"]
         kwargs.update(extra_kwargs)
 
         return DataLoader(dset, **kwargs)
@@ -60,6 +63,10 @@ class DataloaderConfig(BaseModel):
         """
         kwargs = self.dict()
         kwargs["shuffle"] = False
+
+        if self.num_workers == 0:
+            del kwargs["prefetch_factor"]
+
         kwargs.update(extra_kwargs)
 
         return DataLoader(dset, **kwargs)
