@@ -15,6 +15,7 @@ class TrainerConfig(BaseModel):
     callbacks: List[CallbackConfig] = []
     logger: BaseLoggerConfig
     devices: Optional[int] = None
+    resume_from_checkpoint: Optional[str] = None
 
     @validator("accelerator")
     def validate_accelerator(cls, v):

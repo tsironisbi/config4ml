@@ -21,3 +21,6 @@ Basic configuration utilities and API for ML projects
 - [lightning] Weights and biases logger (Wand) support
 - [torch] Support for torch LR schedulers config [stepLR, exponentialLR, reduceOnPlateauLR]
 - [torch] Support for torch Optimizers config [Adam, SGD]
+
+## [v0.0.3b]
+- [lightning] Trainer support for "resume_from_checkpoint" argument (default: None)
