@@ -23,6 +23,7 @@ class ModelCheckpointConfig(CallbackConfig):
     save_on_train_epoch_end: bool = False
     save_top_k: int = 3
     save_last: bool = True
+    dirpath: Optional[str] = None
     mode: str = "max"
 
     @root_validator
