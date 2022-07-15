@@ -24,3 +24,6 @@ Basic configuration utilities and API for ML projects
 
 ## [v0.0.3b]
 - [lightning] Trainer support for "resume_from_checkpoint" argument (default: None)
+
+## [v0.0.3c]
+- [data] Transform config separately for train / val

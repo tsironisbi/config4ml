@@ -32,13 +32,18 @@ class DatasetConfig(BaseModel):
     type: str = "abstract_dataset"
     root: str
     split: Union[str, float] = "default"
-    transforms: List[TransformConfig] = []
+    train_transforms: List[TransformConfig] = []
+    val_transforms: List[TransformConfig] = []
     dataloader: DataloaderConfig = DataloaderConfig()
 
     @property
-    def transform_callables(self) -> List[Callable]:
-        return [T.fun for T in self.transforms]
-
+    def transform_callables(self, mode:str) -> List[Callable]:
+        assert mode in ["train", "val"]
+        if mode == "train":
+            return [T.fun for T in self.train_transforms]
+        else:
+            return [T.fun for T in self.val_transforms]
+    
     @abstractmethod
     def build_datasets(self) -> Tuple[Dataset, Dataset]:
         pass
