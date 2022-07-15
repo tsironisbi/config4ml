@@ -36,7 +36,6 @@ class DatasetConfig(BaseModel):
     val_transforms: List[TransformConfig] = []
     dataloader: DataloaderConfig = DataloaderConfig()
 
-    @property
     def transform_callables(self, mode:str) -> List[Callable]:
         assert mode in ["train", "val"]
         if mode == "train":
