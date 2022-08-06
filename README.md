@@ -1,6 +1,7 @@
 # config4ml
 Basic configuration utilities and API for ML projects
 
+NOTE: This repo is in pre-alpha and under development!!!
 
 # Change-log
 
