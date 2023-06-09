@@ -23,7 +23,7 @@ class Registry:
     @classmethod
     def get_transform(cls, key: str) -> Callable:
         if key not in cls._transforms:
-            raise InvalidTransformError(f"{key=} is not a valid transform name")
+            raise InvalidTransformError(f"{key} is not a valid transform name")
         return cls._transforms[key]
 
 
