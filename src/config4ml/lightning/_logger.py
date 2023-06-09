@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, validator
 from pytorch_lightning.loggers import (
-    LightningLoggerBase,
+    Logger,
     NeptuneLogger,
     TensorBoardLogger,
     WandbLogger,
@@ -19,7 +19,7 @@ class BaseLoggerConfig(BaseModel):
     type: str = "abstract"
 
     @property
-    def logger(self) -> LightningLoggerBase:
+    def logger(self) -> Logger:
         raise NotImplementedError
 
 
@@ -30,7 +30,7 @@ class NeptuneLoggerConfig(BaseLoggerConfig):
     tags: List[str]
 
     @property
-    def logger(self) -> LightningLoggerBase:
+    def logger(self) -> Logger:
         kwargs = self.dict()
         kwargs.pop("type")
         return NeptuneLogger(**kwargs)
@@ -42,7 +42,7 @@ class TensorboardLoggerConfig(BaseLoggerConfig):
     name: Optional[str] = None
 
     @property
-    def logger(self) -> LightningLoggerBase:
+    def logger(self) -> Logger:
         kwargs = self.dict()
         kwargs.pop("type")
         return TensorBoardLogger(**kwargs)
@@ -62,7 +62,7 @@ class WandLoggerConfig(BaseLoggerConfig):
     prefix: str = ""
 
     @property
-    def logger(self) -> LightningLoggerBase:
+    def logger(self) -> Logger:
         kwargs = self.dict()
         kwargs.pop("type")
         return WandbLogger(**kwargs)
@@ -72,7 +72,7 @@ class ConsoleLoggerConfig(BaseLoggerConfig):
     type = "console"
 
     @property
-    def logger(self) -> LightningLoggerBase:
+    def logger(self) -> Logger:
         return ConsoleLogger()
 
 
